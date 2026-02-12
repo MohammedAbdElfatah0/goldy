@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:goldy/core/routing/routes.dart';
 
+import '../../features/gold/presentation/screens/gold_screen.dart';
 import '../presentation/home_screen.dart';
 
 class AppRouter {
@@ -9,7 +10,7 @@ class AppRouter {
       case AppRoutes.home:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
         case AppRoutes.gold:
-        // return MaterialPageRoute(builder: (_)=>const GoldScreen());
+        return MaterialPageRoute(builder: (_)=>const GoldScreen());
         case AppRoutes.silver:
         // return MaterialPageRoute(builder: (_)=>const SilverScreen());
       default:

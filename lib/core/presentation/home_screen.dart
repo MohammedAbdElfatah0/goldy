@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goldy/core/routing/routes.dart';
 import 'package:goldy/core/widgets/custom_button.dart';
 
 import '../constants/app_color.dart';
@@ -9,11 +10,17 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CustomButton(color: AppColors.goldColor, text: AppString.gold),
+          CustomButton(
+            color: AppColors.goldColor,
+            text: AppString.gold,
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.gold);
+            },
+          ),
           SizedBox(height: 15),
           CustomButton(color: AppColors.silverColor, text: AppString.silver),
         ],

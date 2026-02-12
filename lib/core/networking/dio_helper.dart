@@ -2,16 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:goldy/core/networking/api_constant.dart';
 
 class DioHelper {
-  //header
-  static final header = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  };
-
-
   static late Dio dio;
-  
-  
+
   //init dio
   static init() {
     dio = Dio(
@@ -20,9 +12,11 @@ class DioHelper {
         receiveDataWhenStatusError: true,
         connectTimeout: Duration(seconds: 20),
         receiveTimeout: Duration(seconds: 20),
-        headers: header,
+        headers: {"Accept": "application/json", "User-Agent": "Mozilla/5.0"},//!  Add user agent
       ),
     );
+
+    // Add retry interceptor for rate limiting
   }
 
   static Future<Response> getData({
