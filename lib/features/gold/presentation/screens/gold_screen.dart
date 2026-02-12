@@ -28,29 +28,30 @@ class GoldScreen extends StatelessWidget {
           centerTitle: true,
           backgroundColor: Colors.black87,
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              AppImage.goldImage,
-              width: double.infinity,
-              height: MediaQuery.sizeOf(context).height * 0.6,
-            ),
-            BlocBuilder<GoldCubit, GoldState>(
-              builder: (context, state) {
-                return switch (state) {
-                  GoldLoadingCubit() => const Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.whiteColor,
-                    ),
+        body: BlocBuilder<GoldCubit, GoldState>(
+          builder: (context, state) {
+            return switch (state) {
+              GoldLoadingCubit() => const Center(
+                child: CircularProgressIndicator(color: AppColors.whiteColor),
+              ),
+
+              GoldFailureCubit(:final errorMessage) => Center(
+                child: Text(
+                  errorMessage,
+                  style: const TextStyle(color: AppColors.whiteColor),
+                ),
+              ),
+
+              GoldSuccessCubit(:final goldModel) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    AppImage.goldImage,
+                    width: double.infinity,
+                    height: MediaQuery.sizeOf(context).height * 0.6,
                   ),
 
-                  GoldFailureCubit(:final errorMessage) => Text(
-                    errorMessage,
-                    style: const TextStyle(color: AppColors.whiteColor),
-                  ),
-
-                  GoldSuccessCubit(:final goldModel) => Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomTextWidget(title: goldModel.price.toString()),
@@ -58,12 +59,12 @@ class GoldScreen extends StatelessWidget {
                       CustomTextWidget(title: AppString.usd),
                     ],
                   ),
+                ],
+              ),
 
-                  _ => const SizedBox(),
-                };
-              },
-            ),
-          ],
+              _ => const SizedBox(),
+            };
+          },
         ),
       ),
     );

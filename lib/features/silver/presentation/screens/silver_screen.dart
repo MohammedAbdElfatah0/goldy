@@ -28,31 +28,33 @@ class SilverScreen extends StatelessWidget {
           centerTitle: true,
           backgroundColor: Colors.black87,
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              AppImage.silverImage,
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: MediaQuery.sizeOf(context).height * 0.6,
-            ),
-            SizedBox(height: 20),
-            BlocBuilder<SilverCubit, SilverState>(
-              builder: (context, state) {
-                return switch (state) {
-                  SilverLoadingCubit() => const Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.whiteColor,
-                    ),
-                  ),
+        body: BlocBuilder<SilverCubit, SilverState>(
+          builder: (context, state) {
+            return switch (state) {
+              SilverLoadingCubit() => const Center(
+                child: Center(
+                  child: CircularProgressIndicator(color: AppColors.whiteColor),
+                ),
+              ),
 
-                  SilverFailureCubit(:final errorMessage) => Text(
-                    errorMessage,
-                    style: const TextStyle(color: AppColors.whiteColor),
-                  ),
+              SilverFailureCubit(:final errorMessage) => Center(
+                child: Text(
+                  errorMessage,
+                  style: const TextStyle(color: AppColors.whiteColor),
+                ),
+              ),
 
-                  SilverSuccessCubit(:final silverModel) => Row(
+              SilverSuccessCubit(:final silverModel) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    AppImage.silverImage,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: MediaQuery.sizeOf(context).height * 0.6,
+                  ),
+                  SizedBox(height: 20),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomTextWidget(title: silverModel.price.toString()),
@@ -60,12 +62,12 @@ class SilverScreen extends StatelessWidget {
                       CustomTextWidget(title: AppString.usd),
                     ],
                   ),
+                ],
+              ),
 
-                  _ => const SizedBox(),
-                };
-              },
-            ),
-          ],
+              _ => const SizedBox(),
+            };
+          },
         ),
       ),
     );
