@@ -22,7 +22,13 @@ class HomeScreen extends StatelessWidget {
             },
           ),
           SizedBox(height: 15),
-          CustomButton(color: AppColors.silverColor, text: AppString.silver),
+          CustomButton(
+            color: AppColors.silverColor,
+            text: AppString.silver,
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.silver);
+            },
+          ),
         ],
       ),
     );
